@@ -24,20 +24,16 @@ class TestController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'min_pass_scroce' => 'required',
-            'level' => 'required'
+            'level' => 'required',
+            'duration' => 'required'
         ]);
-
-        $course = Course::find($id);
-
-        if(!$course) {
-            return $this->errorResponse('Course not found', [], 404);
-        }
 
         $test = new Test($validated);
         $test->save();
 
 
         return $this->successResponse($test, 'Create test successfully');
+      
     }
 
     public function getTest(int $id) {

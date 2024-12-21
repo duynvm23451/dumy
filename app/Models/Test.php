@@ -27,6 +27,7 @@ class Test extends Model
         'name',
         'level',
         'min_pass_scroce',
+        'duration',
     ];
 
     /**

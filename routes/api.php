@@ -80,7 +80,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
       //Tests
       Route::get('/tests', [TestController::class, "listTests"]);
-      Route::post('/courses/{id}/tests', [TestController::class, "createTest"]);
+      Route::post('/tests', [TestController::class, "createTest"]);
       Route::get('tests/{id}', [TestController::class, "getTest"]);
       
       //Questions
