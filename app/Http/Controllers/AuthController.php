@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\User;
 use App\trait\FormatResponse;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:students',
             'password' => 'required|string|min:8',
         ]);
 
@@ -25,7 +26,7 @@ class AuthController extends Controller
             return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
-        $user = User::create([
+        $user = Student::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -48,7 +49,7 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = Student::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return $this->errorResponse('Invalid credentials', [], 401);

@@ -9,6 +9,7 @@ trait FormatResponse
      {
          return response()->json([
              'status' => true,
+             'code' => $statusCode,
              'message' => $message,
              'data' => $data
          ], $statusCode);
@@ -19,6 +20,7 @@ trait FormatResponse
      {
          return response()->json([
              'status' => false,
+             'code' => $statusCode,
              'message' => $message,
              'errors' => $errors
          ], $statusCode);

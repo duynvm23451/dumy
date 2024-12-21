@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'students'),
     ],
 
     /*
@@ -42,7 +42,11 @@ return [
         ],
         'api' => [
             'driver' => 'sanctum', // Sanctum is used for API guard
-            'provider' => 'users',
+            'provider' => 'students',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins', // Khai báo provider mới cho Admin
         ],
     ],
 
@@ -64,9 +68,13 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'students' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\Student::class),
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class, // Liên kết tới model Admin
         ],
 
         // 'users' => [
