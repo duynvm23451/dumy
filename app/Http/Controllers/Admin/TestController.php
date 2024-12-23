@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Test;
 use App\trait\FormatResponse;
+use Exception;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -20,7 +21,7 @@ class TestController extends Controller
     }
 
     
-    public function createTest(Request $request, int $id) {
+    public function createTest(Request $request) {
         $validated = $request->validate([
             'name' => 'required',
             'min_pass_scroce' => 'required',
@@ -43,6 +44,16 @@ class TestController extends Controller
         }
 
         return $this->successResponse($test, 'Get test successfully');
+    }
+
+    public function listResults(Request $request) {
+        try {
+            $tests = Test::whereHas("student_test_attemps")->with("student_test_attemps.student")->paginate($request->size ?? 10);
+            $data = Helpers::paginate($tests);
+            return $this->successResponse($data, 'List tests successfully');           
+        } catch (Exception $e) {
+            return $this->errorResponse($e->getMessage(), [], 404);
+        }
     }
 
 

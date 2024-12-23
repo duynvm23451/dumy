@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\admin\CourseController;
+use App\Http\Controllers\Admin\EnrollmentController as AdminEnrollmentController;
 use App\Http\Controllers\Admin\LessonController;
 use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\QuestionAnswerController;
@@ -90,6 +91,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
       //QuestionAnswers
       Route::post('/questions/{id}/questionAnswers', [QuestionAnswerController::class, "createQuestionAnswer"]);
+
+      //Enrollments
+      Route::get('/enrollments', [AdminEnrollmentController::class, "listEnrollment"]);
+
+      //Results
+      Route::get('/results', [TestController::class, "listResults"]);
+
+
 
     });
 });
