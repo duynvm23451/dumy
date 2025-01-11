@@ -46,4 +46,8 @@ class Student extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function student_lesson() {
+        return $this->hasMany(StudentLesson::class);
+    }
 }

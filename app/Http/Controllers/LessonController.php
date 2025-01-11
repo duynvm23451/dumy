@@ -119,7 +119,7 @@ class LessonController extends Controller
     public function getLesson(Request $request, int $id) {
         try {
             $loggedInUser = $request->user();
-            $lesson = Lesson::find($id);
+            $lesson = Lesson::with("student_lesson")->find($id);
             if(!$lesson) {
                 return $this->errorResponse('Lesson not found', [], 404);
             }
@@ -131,6 +131,7 @@ class LessonController extends Controller
                 $studentLesson->lesson_id = $lesson->id;
                 $studentLesson->student_id = $loggedInUser->id;
                 $studentLesson->save();
+                $lesson = Lesson::with("student_lesson")->find($id);
             }
     
             return $this->successResponse($lesson, 'Get lesson successfully');

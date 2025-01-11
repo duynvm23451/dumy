@@ -10,7 +10,6 @@ class StudentController extends Controller
     use FormatResponse;
 
     public function getLoggedInUser(Request $request) {
-        return $this->successResponse($request->user(), 'Get logged in student successfully');
-
+        return $this->successResponse($request->user()->load('student_lesson'), 'Get logged in student successfully');
     }
 }

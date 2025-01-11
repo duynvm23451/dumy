@@ -47,7 +47,7 @@ class CourseController extends Controller
     } 
 
     public function getCourse(int $id) {
-        $course = Course::with("modules.lessons")->find($id);
+        $course = Course::with("modules.lessons.student_lesson")->find($id);
         if(!$course) {
             return $this->errorResponse('Course not found', [], 404);
         }
